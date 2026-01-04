@@ -2,7 +2,49 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ 
+- PostgreSQL database
+- GitHub OAuth App credentials
+- Groq API key
+
+### Environment Setup
+
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Fill in your environment variables in `.env`:
+
+   **Required Variables:**
+   - `DATABASE_URL` - PostgreSQL connection string (e.g., `postgresql://user:password@localhost:5432/ai_mentor`)
+   - `GITHUB_ID` - GitHub OAuth App Client ID
+   - `GITHUB_SECRET` - GitHub OAuth App Client Secret
+   - `GROQ_API_KEY` - Groq API key for AI chat functionality
+
+   **Optional Variables:**
+   - `EMAIL_SERVER` - SMTP server connection string (required in production)
+   - `EMAIL_FROM` - Email address for sending emails
+   - `NEXTAUTH_URL` - Your application URL (defaults to `http://localhost:3000` in development)
+   - `NEXTAUTH_SECRET` - Secret key for NextAuth (should be at least 32 characters)
+
+3. The application will automatically validate all environment variables on startup. If any required variables are missing, you'll see a clear error message.
+
+### Database Setup
+
+1. Create your PostgreSQL database
+2. Run migrations:
+   ```bash
+   npx prisma migrate dev
+   ```
+3. (Optional) Generate Prisma client:
+   ```bash
+   npx prisma generate
+   ```
+
+### Running the Development Server
 
 ```bash
 npm run dev

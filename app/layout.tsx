@@ -4,6 +4,10 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { ensureEnvValidated } from "@/lib/env.server";
+
+// Validate environment variables on server startup
+ensureEnvValidated();
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
