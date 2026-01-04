@@ -25,13 +25,17 @@ type EnvSchema = {
   NEXTAUTH_SECRET?: string;
 };
 
-type RequiredEnvVars = {
-  [K in keyof EnvSchema]: EnvSchema[K] extends string ? K : never;
-}[keyof EnvSchema];
+type RequiredEnvVars = 
+  | "DATABASE_URL"
+  | "GITHUB_ID"
+  | "GITHUB_SECRET"
+  | "GROQ_API_KEY";
 
-type OptionalEnvVars = {
-  [K in keyof EnvSchema]: EnvSchema[K] extends string | undefined ? K : never;
-}[keyof EnvSchema];
+type OptionalEnvVars = 
+  | "EMAIL_SERVER"
+  | "EMAIL_FROM"
+  | "NEXTAUTH_URL"
+  | "NEXTAUTH_SECRET";
 
 const requiredEnvVars: RequiredEnvVars[] = [
   "DATABASE_URL",
@@ -80,7 +84,7 @@ export function validateEnv(): void {
 
   // Check required variables
   for (const varName of requiredEnvVars) {
-    const value = process.env[varName];
+    const value = process.env[varName as string];
     
     if (!value || value.trim() === "") {
       missing.push(varName);
