@@ -254,7 +254,7 @@ export type GoalWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tasks?: Prisma.TaskListRelationFilter
-  chats?: Prisma.ChatMessageListRelationFilter
+  chatMessages?: Prisma.ChatMessageListRelationFilter
 }
 
 export type GoalOrderByWithRelationInput = {
@@ -269,7 +269,7 @@ export type GoalOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
-  chats?: Prisma.ChatMessageOrderByRelationAggregateInput
+  chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
 }
 
 export type GoalWhereUniqueInput = Prisma.AtLeast<{
@@ -287,7 +287,7 @@ export type GoalWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tasks?: Prisma.TaskListRelationFilter
-  chats?: Prisma.ChatMessageListRelationFilter
+  chatMessages?: Prisma.ChatMessageListRelationFilter
 }, "id">
 
 export type GoalOrderByWithAggregationInput = {
@@ -333,7 +333,7 @@ export type GoalCreateInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutGoalsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutGoalInput
-  chats?: Prisma.ChatMessageCreateNestedManyWithoutGoalInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutGoalInput
 }
 
 export type GoalUncheckedCreateInput = {
@@ -347,7 +347,7 @@ export type GoalUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutGoalInput
-  chats?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutGoalInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutGoalInput
 }
 
 export type GoalUpdateInput = {
@@ -361,7 +361,7 @@ export type GoalUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutGoalsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutGoalNestedInput
-  chats?: Prisma.ChatMessageUpdateManyWithoutGoalNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutGoalNestedInput
 }
 
 export type GoalUncheckedUpdateInput = {
@@ -375,7 +375,7 @@ export type GoalUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutGoalNestedInput
-  chats?: Prisma.ChatMessageUncheckedUpdateManyWithoutGoalNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutGoalNestedInput
 }
 
 export type GoalCreateManyInput = {
@@ -474,6 +474,11 @@ export type GoalScalarRelationFilter = {
   isNot?: Prisma.GoalWhereInput
 }
 
+export type GoalNullableScalarRelationFilter = {
+  is?: Prisma.GoalWhereInput | null
+  isNot?: Prisma.GoalWhereInput | null
+}
+
 export type GoalCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.GoalCreateWithoutUserInput, Prisma.GoalUncheckedCreateWithoutUserInput> | Prisma.GoalCreateWithoutUserInput[] | Prisma.GoalUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.GoalCreateOrConnectWithoutUserInput | Prisma.GoalCreateOrConnectWithoutUserInput[]
@@ -538,18 +543,20 @@ export type GoalUpdateOneRequiredWithoutTasksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.GoalUpdateToOneWithWhereWithoutTasksInput, Prisma.GoalUpdateWithoutTasksInput>, Prisma.GoalUncheckedUpdateWithoutTasksInput>
 }
 
-export type GoalCreateNestedOneWithoutChatsInput = {
-  create?: Prisma.XOR<Prisma.GoalCreateWithoutChatsInput, Prisma.GoalUncheckedCreateWithoutChatsInput>
-  connectOrCreate?: Prisma.GoalCreateOrConnectWithoutChatsInput
+export type GoalCreateNestedOneWithoutChatMessagesInput = {
+  create?: Prisma.XOR<Prisma.GoalCreateWithoutChatMessagesInput, Prisma.GoalUncheckedCreateWithoutChatMessagesInput>
+  connectOrCreate?: Prisma.GoalCreateOrConnectWithoutChatMessagesInput
   connect?: Prisma.GoalWhereUniqueInput
 }
 
-export type GoalUpdateOneRequiredWithoutChatsNestedInput = {
-  create?: Prisma.XOR<Prisma.GoalCreateWithoutChatsInput, Prisma.GoalUncheckedCreateWithoutChatsInput>
-  connectOrCreate?: Prisma.GoalCreateOrConnectWithoutChatsInput
-  upsert?: Prisma.GoalUpsertWithoutChatsInput
+export type GoalUpdateOneWithoutChatMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.GoalCreateWithoutChatMessagesInput, Prisma.GoalUncheckedCreateWithoutChatMessagesInput>
+  connectOrCreate?: Prisma.GoalCreateOrConnectWithoutChatMessagesInput
+  upsert?: Prisma.GoalUpsertWithoutChatMessagesInput
+  disconnect?: Prisma.GoalWhereInput | boolean
+  delete?: Prisma.GoalWhereInput | boolean
   connect?: Prisma.GoalWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GoalUpdateToOneWithWhereWithoutChatsInput, Prisma.GoalUpdateWithoutChatsInput>, Prisma.GoalUncheckedUpdateWithoutChatsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GoalUpdateToOneWithWhereWithoutChatMessagesInput, Prisma.GoalUpdateWithoutChatMessagesInput>, Prisma.GoalUncheckedUpdateWithoutChatMessagesInput>
 }
 
 export type GoalCreateWithoutUserInput = {
@@ -562,7 +569,7 @@ export type GoalCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskCreateNestedManyWithoutGoalInput
-  chats?: Prisma.ChatMessageCreateNestedManyWithoutGoalInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutGoalInput
 }
 
 export type GoalUncheckedCreateWithoutUserInput = {
@@ -575,7 +582,7 @@ export type GoalUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutGoalInput
-  chats?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutGoalInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutGoalInput
 }
 
 export type GoalCreateOrConnectWithoutUserInput = {
@@ -629,7 +636,7 @@ export type GoalCreateWithoutTasksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutGoalsInput
-  chats?: Prisma.ChatMessageCreateNestedManyWithoutGoalInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutGoalInput
 }
 
 export type GoalUncheckedCreateWithoutTasksInput = {
@@ -642,7 +649,7 @@ export type GoalUncheckedCreateWithoutTasksInput = {
   progress?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chats?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutGoalInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutGoalInput
 }
 
 export type GoalCreateOrConnectWithoutTasksInput = {
@@ -671,7 +678,7 @@ export type GoalUpdateWithoutTasksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutGoalsNestedInput
-  chats?: Prisma.ChatMessageUpdateManyWithoutGoalNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutGoalNestedInput
 }
 
 export type GoalUncheckedUpdateWithoutTasksInput = {
@@ -684,10 +691,10 @@ export type GoalUncheckedUpdateWithoutTasksInput = {
   progress?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chats?: Prisma.ChatMessageUncheckedUpdateManyWithoutGoalNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutGoalNestedInput
 }
 
-export type GoalCreateWithoutChatsInput = {
+export type GoalCreateWithoutChatMessagesInput = {
   id?: string
   title: string
   description?: string | null
@@ -700,7 +707,7 @@ export type GoalCreateWithoutChatsInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutGoalInput
 }
 
-export type GoalUncheckedCreateWithoutChatsInput = {
+export type GoalUncheckedCreateWithoutChatMessagesInput = {
   id?: string
   userId: string
   title: string
@@ -713,23 +720,23 @@ export type GoalUncheckedCreateWithoutChatsInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutGoalInput
 }
 
-export type GoalCreateOrConnectWithoutChatsInput = {
+export type GoalCreateOrConnectWithoutChatMessagesInput = {
   where: Prisma.GoalWhereUniqueInput
-  create: Prisma.XOR<Prisma.GoalCreateWithoutChatsInput, Prisma.GoalUncheckedCreateWithoutChatsInput>
+  create: Prisma.XOR<Prisma.GoalCreateWithoutChatMessagesInput, Prisma.GoalUncheckedCreateWithoutChatMessagesInput>
 }
 
-export type GoalUpsertWithoutChatsInput = {
-  update: Prisma.XOR<Prisma.GoalUpdateWithoutChatsInput, Prisma.GoalUncheckedUpdateWithoutChatsInput>
-  create: Prisma.XOR<Prisma.GoalCreateWithoutChatsInput, Prisma.GoalUncheckedCreateWithoutChatsInput>
+export type GoalUpsertWithoutChatMessagesInput = {
+  update: Prisma.XOR<Prisma.GoalUpdateWithoutChatMessagesInput, Prisma.GoalUncheckedUpdateWithoutChatMessagesInput>
+  create: Prisma.XOR<Prisma.GoalCreateWithoutChatMessagesInput, Prisma.GoalUncheckedCreateWithoutChatMessagesInput>
   where?: Prisma.GoalWhereInput
 }
 
-export type GoalUpdateToOneWithWhereWithoutChatsInput = {
+export type GoalUpdateToOneWithWhereWithoutChatMessagesInput = {
   where?: Prisma.GoalWhereInput
-  data: Prisma.XOR<Prisma.GoalUpdateWithoutChatsInput, Prisma.GoalUncheckedUpdateWithoutChatsInput>
+  data: Prisma.XOR<Prisma.GoalUpdateWithoutChatMessagesInput, Prisma.GoalUncheckedUpdateWithoutChatMessagesInput>
 }
 
-export type GoalUpdateWithoutChatsInput = {
+export type GoalUpdateWithoutChatMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -742,7 +749,7 @@ export type GoalUpdateWithoutChatsInput = {
   tasks?: Prisma.TaskUpdateManyWithoutGoalNestedInput
 }
 
-export type GoalUncheckedUpdateWithoutChatsInput = {
+export type GoalUncheckedUpdateWithoutChatMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
@@ -776,7 +783,7 @@ export type GoalUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUpdateManyWithoutGoalNestedInput
-  chats?: Prisma.ChatMessageUpdateManyWithoutGoalNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutGoalNestedInput
 }
 
 export type GoalUncheckedUpdateWithoutUserInput = {
@@ -789,7 +796,7 @@ export type GoalUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutGoalNestedInput
-  chats?: Prisma.ChatMessageUncheckedUpdateManyWithoutGoalNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutGoalNestedInput
 }
 
 export type GoalUncheckedUpdateManyWithoutUserInput = {
@@ -810,12 +817,12 @@ export type GoalUncheckedUpdateManyWithoutUserInput = {
 
 export type GoalCountOutputType = {
   tasks: number
-  chats: number
+  chatMessages: number
 }
 
 export type GoalCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tasks?: boolean | GoalCountOutputTypeCountTasksArgs
-  chats?: boolean | GoalCountOutputTypeCountChatsArgs
+  chatMessages?: boolean | GoalCountOutputTypeCountChatMessagesArgs
 }
 
 /**
@@ -838,7 +845,7 @@ export type GoalCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Exte
 /**
  * GoalCountOutputType without action
  */
-export type GoalCountOutputTypeCountChatsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GoalCountOutputTypeCountChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ChatMessageWhereInput
 }
 
@@ -855,7 +862,7 @@ export type GoalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Goal$tasksArgs<ExtArgs>
-  chats?: boolean | Prisma.Goal$chatsArgs<ExtArgs>
+  chatMessages?: boolean | Prisma.Goal$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.GoalCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["goal"]>
 
@@ -901,7 +908,7 @@ export type GoalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type GoalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Goal$tasksArgs<ExtArgs>
-  chats?: boolean | Prisma.Goal$chatsArgs<ExtArgs>
+  chatMessages?: boolean | Prisma.Goal$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.GoalCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GoalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -916,7 +923,7 @@ export type $GoalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     tasks: Prisma.$TaskPayload<ExtArgs>[]
-    chats: Prisma.$ChatMessagePayload<ExtArgs>[]
+    chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1324,7 +1331,7 @@ export interface Prisma__GoalClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tasks<T extends Prisma.Goal$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Goal$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  chats<T extends Prisma.Goal$chatsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Goal$chatsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatMessages<T extends Prisma.Goal$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Goal$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1783,9 +1790,9 @@ export type Goal$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 }
 
 /**
- * Goal.chats
+ * Goal.chatMessages
  */
-export type Goal$chatsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Goal$chatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ChatMessage
    */

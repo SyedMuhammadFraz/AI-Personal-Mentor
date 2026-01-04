@@ -16,6 +16,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   goals         Goal[]
+  chatMessages  ChatMessage[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -30,7 +31,7 @@ model Goal {
   deadline    DateTime?
   progress    Int           @default(0) // percentage
   tasks       Task[]
-  chats       ChatMessage[]
+  chatMessages ChatMessage[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 }
@@ -50,9 +51,12 @@ model Task {
 
 model ChatMessage {
   id        String   @id @default(cuid())
-  goal      Goal     @relation(fields: [goalId], references: [id])
-  goalId    String
-  role      String   // "user" | "assistant"
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  goal      Goal?    @relation(fields: [goalId], references: [id])
+  goalId    String?
+  conversationId String
+  role      String
   content   String
   createdAt DateTime @default(now())
 }

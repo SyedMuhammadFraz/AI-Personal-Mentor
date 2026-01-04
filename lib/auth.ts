@@ -3,30 +3,49 @@ import NextAuth, { type NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import { prisma } from "./prisma";
 import Email from "next-auth/providers/email";
+import { getEnv, getEnvWithDefault, getOptionalEnv } from "./env";
+
+// Build providers array conditionally
+const nodeEnv = getEnv("NODE_ENV");
+const providers: NextAuthOptions["providers"] = [
+  GitHubProvider({
+    clientId: getEnv("GITHUB_ID"),
+    clientSecret: getEnv("GITHUB_SECRET"),
+  }),
+];
+
+// Only add Email provider if we have a valid email configuration
+if (nodeEnv === "development") {
+  // In development, use MailDev
+  providers.push(
+    Email({
+      server: {
+        host: "localhost",
+        port: 1025,
+        auth: {
+          user: "user",
+          pass: "pass",
+        },
+      },
+      from: getEnvWithDefault("EMAIL_FROM", "no-reply@dev.local"),
+    })
+  );
+} else {
+  // In production, only add Email provider if EMAIL_SERVER is configured
+  const emailServer = getOptionalEnv("EMAIL_SERVER");
+  if (emailServer) {
+    providers.push(
+      Email({
+        server: emailServer,
+        from: getEnvWithDefault("EMAIL_FROM", "no-reply@dev.local"),
+      })
+    );
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  providers: [
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
-    }),
-    Email({
-      // Use MailDev in development
-      server:
-        process.env.NODE_ENV === "development"
-          ? {
-              host: "localhost",
-              port: 1025,
-              auth: {
-                user: "user",
-                pass: "pass",
-              },
-            }
-          : process.env.EMAIL_SERVER, // production SMTP
-      from: process.env.EMAIL_FROM || "no-reply@dev.local",
-    }),
-  ],
+  providers,
   session: { strategy: "database" },
   callbacks: {
     session({ session, user }: any) {

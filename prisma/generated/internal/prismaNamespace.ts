@@ -1012,7 +1012,9 @@ export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof Task
 
 export const ChatMessageScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   goalId: 'goalId',
+  conversationId: 'conversationId',
   role: 'role',
   content: 'content',
   createdAt: 'createdAt'

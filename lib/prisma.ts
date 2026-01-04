@@ -1,8 +1,9 @@
-import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg"; // PostgreSQL adapter
+import { PrismaClient } from "@/prisma/generated/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { getEnv } from "./env";
 
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL!,
+  connectionString: getEnv("DATABASE_URL"),
 });
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
