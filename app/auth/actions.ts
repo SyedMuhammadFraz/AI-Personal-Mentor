@@ -30,9 +30,18 @@ export async function signup(formData: FormData): Promise<ActionResult> {
     const { name, email, password } = validation.data;
 
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    // Use try-catch to handle Prisma client initialization errors
+    let existingUser;
+    try {
+      existingUser = await prisma.user.findUnique({
+        where: { email },
+      });
+    } catch (prismaError) {
+      console.error("Prisma error in signup:", prismaError);
+      return {
+        error: "Database connection error. Please try again later.",
+      };
+    }
 
     if (existingUser) {
       // Check if user already has a password (credentials account)
@@ -53,13 +62,20 @@ export async function signup(formData: FormData): Promise<ActionResult> {
 
     // Create new user
     const hashedPassword = await hash(password, 12);
-    await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-      },
-    });
+    try {
+      await prisma.user.create({
+        data: {
+          name,
+          email,
+          password: hashedPassword,
+        },
+      });
+    } catch (createError) {
+      console.error("Prisma error creating user:", createError);
+      return {
+        error: "Failed to create account. Please try again later.",
+      };
+    }
 
     return { error: null };
   } catch (error) {
